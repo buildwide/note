@@ -4,3 +4,6 @@ git config --global credential.helper store
 ## 临时记住密码
 git config –global credential.helper cache
 git config credential.helper ‘cache –timeout=3600’
+
+## 忘记密码
+git config --system --unset credential.helper
