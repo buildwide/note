@@ -1,0 +1,49 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+    container_name: php
+    volumes:
+      - /Users/guang/coding/me/pos_ms_api:/var/www/html
+    working_dir: /var/www/html
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - php_network
+
+  mysql:
+    image: mysql:8.0
+    container_name: php_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: pos_ms
+    volumes:
+      - /Users/guang/docker/mysql/data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - php_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: php_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - php_network
+
+volumes:
+  redisdata:
+
+
+networks:
+  php_network:
+    driver: bridge
