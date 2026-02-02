@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile-php
     container_name: php
     volumes:
-      - /Users/guang/coding/me/pos_ms_api:/var/www/html
+      - /Users/coding/project:/var/www/html
     working_dir: /var/www/html
     ports:
       - "8000:8000"
@@ -20,10 +20,10 @@ services:
     container_name: php_mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: pos_ms
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: database
     volumes:
-      - /Users/guang/docker/mysql/data:/var/lib/mysql
+      - /Users/.docker/mysql/data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
