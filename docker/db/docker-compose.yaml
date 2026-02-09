@@ -1,0 +1,36 @@
+services:
+  mysql:
+    image: ${MYSQL_IMAGE}
+    container_name: my_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ${MYSQL_DATA_DIR}:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    command: --bind-address=0.0.0.0
+    networks:
+      - db_network
+
+  redis:
+    image: ${REDIS_IMAGE}
+    container_name: my_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--bind", "0.0.0.0"]
+    volumes:
+      - redisdata:/data
+    networks:
+      - db_network
+
+volumes:
+  redisdata:
+
+networks:
+  db_network:
+    driver: bridge
+    name: db_network
