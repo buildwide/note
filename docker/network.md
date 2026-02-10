@@ -29,3 +29,19 @@ networks:
     # name 可省略，因为外部网络名和 key 同名
 
     ✅ 这是最推荐的做法：在第一个 Compose 中用 name: 固定网络名，便于跨项目引用。
+
+## docker container ip
+docker
+```
+docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
+```
+docker-compose
+```
+docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+```
+all
+```
+docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+```
+## 宿主机IP
+host.docker.internal

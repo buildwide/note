@@ -20,5 +20,12 @@ php -d memory_limit=-1 composer.phar require *
 php composer.phar COMPOSER_MEMORY_LIMIT=-1 require
 ```
 
-## 不强制以来安装
-composer install --ignore-platform-reqs 
+## 不强制依赖安装
+composer install --ignore-platform-reqs
+
+composer.json
+{
+    "config": {
+        "platform-check": false
+    }
+}
